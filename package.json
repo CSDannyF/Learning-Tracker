@@ -1,0 +1,14 @@
+{
+  "name": "learning-tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm ci & concurrently \"cd Client & npm start\" \"cd Server & npm start\""
+  },
+  "author": "Daniel Fernandez",
+  "license": "UNLICENSED",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
