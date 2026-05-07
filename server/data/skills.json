@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "HTML",
+    "categoryId": 1,
+    "description": "standard, foundational language used to create and structure content on web pages",
+    "notes": []
+  },
+  {
+    "id": 2,
+    "name": "CSS",
+    "categoryId": 1,
+    "description": "Cascading Style Sheets",
+    "notes": []
+  },
+  {
+    "id": 3,
+    "name": "Javascript",
+    "categoryId": 1,
+    "description": "Versatile scripting language for web applications",
+    "notes": []
+  }
+]
