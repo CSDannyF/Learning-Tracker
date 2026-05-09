@@ -1,76 +1,68 @@
-[
-  {
+[{
+  "id": 1,
+  "skillId": 1,
+  "name": "Elements",
+  "status": "in-progress",
+  "startDate": "2026-05-06",
+  "notes": [{
     "id": 1,
-    "skillId": 1,
-    "name": "Elements",
-    "status": "in-progress",
-    "startDate": "2026-05-06",
-    "notes": [
-      {
-        "id": 1,
-        "content": "An HTML element is defined by a start tag, some content, and an end tag",
-        "url": "https://www.w3schools.com/html/html_elements.asp",
-        "date": "2026-05-06"
-      }
-    ]
-  },
-  {
+    "content": "An HTML element is defined by a start tag, some content, and an end tag",
+    "url": "https://www.w3schools.com/html/html_elements.asp",
+    "date": "2026-05-06"
+  }]
+}, {
+  "id": 2,
+  "skillId": 1,
+  "name": "Tags",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 3,
+  "skillId": 1,
+  "name": "Forms",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 4,
+  "skillId": 2,
+  "name": "Selectors",
+  "status": "in-progress",
+  "startDate": "2026-05-07",
+  "notes": [{
     "id": 2,
-    "skillId": 1,
-    "name": "Tags",
-    "status": "not-started",
-    "notes": []
-  },
-  {
+    "content": "CSS selectors are used to find (or select) the HTML elements you want to style.",
+    "url": "https://www.w3schools.com/css/css_selectors.asp",
+    "date": "2026-05-07"
+  }]
+}, {
+  "id": 5,
+  "skillId": 2,
+  "name": "Box-model",
+  "status": "not-started",
+  "startDate": "2026-05-07",
+  "notes": [{
     "id": 3,
-    "skillId": 1,
-    "name": "Forms",
-    "status": "not-started",
-    "notes": []
-  },
-  {
-    "id": 4,
-    "skillId": 2,
-    "name": "Selectors",
-    "status": "in-progress",
-    "startDate":"2026-05-07",
-    "notes": [
-      {
-        "id": 2,
-        "content": "CSS selectors are used to find (or select) the HTML elements you want to style.",
-        "url": "https://www.w3schools.com/css/css_selectors.asp",
-        "date": "2026-05-07"
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "skillId": 2,
-    "name": "Box-model",
-    "status": "not-started",
-    "startDate": "2026-05-07",
-    "notes":[
-      {
-        "id": 3,
-        "content": "The CSS box model is essentially a box that wraps around every HTML element. Every box consists of four parts: content, padding, borders and margins.",
-        "url": "https://www.w3schools.com/css/css_boxmodel.asp",
-        "date": "2026-05-07"
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "skillId": 3,
-    "name": "Data-types",
-    "status": "in-progress",
-    "startDate": "2026-05-07",
-    "notes": []
-  },
-  {
-    "id": 7,
-    "skillId": 3,
-    "name": "Dom-tree",
-    "status": "not-started",
-    "notes": []
-  }
-]
+    "content": "The CSS box model is essentially a box that wraps around every HTML element. Every box consists of four parts: content, padding, borders and margins.",
+    "url": "https://www.w3schools.com/css/css_boxmodel.asp",
+    "date": "2026-05-07"
+  }]
+}, {
+  "id": 6,
+  "skillId": 3,
+  "name": "Data-types",
+  "status": "in-progress",
+  "startDate": "2026-05-07",
+  "notes": []
+}, {
+  "id": 7,
+  "skillId": 3,
+  "name": "Dom-tree",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 8,
+  "skillId": 4,
+  "name": "Spring",
+  "status": "not-started",
+  "notes": []
+}]

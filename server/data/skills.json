@@ -1,5 +1,4 @@
-[
-  {
+[{
     "id": 1,
     "name": "HTML",
     "categoryId": 1,
@@ -18,6 +17,13 @@
     "name": "Javascript",
     "categoryId": 1,
     "description": "Versatile scripting language for web applications",
+    "notes": []
+  },
+  {
+    "id": 4,
+    "name": "Java",
+    "categoryId": 2,
+    "description": "Backend language",
     "notes": []
   }
 ]
