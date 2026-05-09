@@ -257,6 +257,163 @@ app.delete('/api/skills/:id/notes/:noteId', async (req, res) => {
   }
 });
 
+// Get all topics
+app.get('/api/skills/:id/topics', async (req, res) => {
+  let topics = await readJsonData(topicsPath);
+  const skillId = parseInt(req.params.id);
+
+  topics = topics.filter(topic => topic.skillId === skillId);
+  res.status(200).send(topics);
+})
+
+// Post new Topic
+app.post('/api/skills/:id/topics', async (req, res) => {
+  let newTopic = req.body;
+  if (!newTopic.name) {
+    res.status(400).send("Provide a name")
+  } else {
+    let skills = await readJsonData(skillsPath);
+    const skillId = parseInt(req.params.id);
+    const index = skills.findIndex(skill => skill.id == skillId);
+
+    if (index == -1) {
+      res.status(404).send("Skill id was not found")
+    } else {
+      let topics = await readJsonData(topicsPath);
+      let highestId = Math.max(...topics.map(t => t.id));
+
+      if (highestId == -Infinity) {
+        newTopic.id = 1;
+      } else {
+        newTopic.id = highestId + 1;
+      }
+      newTopic.skillId = skillId;
+      newTopic.status = 'not-started';
+      newTopic.notes = [];
+      topics.push(newTopic);
+      await writeJsonData(topicsPath, topics);
+      res.status(201).send(newTopic);
+    }
+  }
+})
+
+// Update Topic by id
+app.put('/api/topics/:id', async (req, res) => {
+  let topics = await readJsonData(topicsPath);
+  const updatedTopic = req.body;
+  const topicId = parseInt(req.params.id);
+  const topicIndex = topics.findIndex(topic => topic.id === topicId);
+
+  if (topicIndex == -1) {
+    res.status(404).send("Topic id not found");
+  } else {
+    topics[topicIndex].name = updatedTopic.name;
+    topics[topicIndex].status = updatedTopic.status;
+    topics[topicIndex].startDate = updatedTopic.startDate;
+
+    await writeJsonData(topicsPath, topics);
+    res.status(200).json(updatedTopic);
+  }
+});
+
+// Delete Topic By id
+app.delete('/api/topics/:id', async (req, res) => {
+  let topics = await readJsonData(topicsPath);
+  let activities = await readJsonData(activitiesPatch);
+  const topicId = parseInt(req.params.id);
+  const topicIndex = topics.findIndex(topic => topic.id === topicId);
+
+  if (topicIndex === -1) {
+    res.status(404).send("Topic id was not found");
+  } else {
+    topics.splice(topicIndex, 1);
+
+    // bijhorende activities verwijderen
+    activities = activities.filter(activity => activity.topicId != topicId);
+
+    await writeJsonData(topicsPath, topics);
+    await writeJsonData(activitiesPatch, activities);
+    res.status(200).end();
+  }
+});
+
+// Post Note to topic
+app.post('/api/topics/:id/notes', async (req, res) => {
+  let topics = await readJsonData(topicsPath);
+  const topicId = parseInt(req.params.id);
+  const topicIndex = topics.findIndex(topic => topic.id === topicId);
+  let highestId = 0;
+
+  if (topicIndex == -1) {
+    res.status(404).send("Topic id not found");
+  } else {
+
+    if (topics[topicIndex].notes) {
+      highestId = Math.max(...topics[topicIndex].notes.map(t => t.id));
+    }
+
+    const newNote = req.body;
+
+    if (highestId == -Infinity) {
+      newNote.id = 1;
+    } else {
+      newNote.id = highestId + 1;
+    }
+    newNote.date = new Date();
+    topics[topicIndex].notes.push(newNote);
+    await writeJsonData(topicsPath, topics);
+    res.status(201).send(newNote);
+  }
+});
+
+// Delete Note in Topic by id
+app.delete('/api/topics/:id/notes/:noteId', async (req, res) => {
+  let topics = await readJsonData(topicsPath);
+  const topicId = parseInt(req.params.id);
+  const noteId = parseInt(req.params.noteId);
+  const topicIndex = topics.findIndex(topic => topic.id === topicId);
+
+  if (topicIndex == -1) {
+    res.status(404).send("Topic id not found");
+  } else {
+    const noteIndex = topics[topicIndex].notes.findIndex(note => note.id === noteId);
+
+    if (noteIndex == -1) {
+      res.status(404).send("Note id not found");
+    } else {
+      topics[topicIndex].notes.splice(noteIndex, 1);
+
+      await writeJsonData(topicsPath, topics);
+      res.status(200).end();
+    }
+  }
+});
+
+// Get all Activities
+app.get('/api/activities', async (req, res) => {
+  const activities = await readJsonData(activitiesPatch);
+  res.status(200).json(activities);
+})
+
+// Post new Activity
+app.post('/api/activities', async (req, res) => {
+  let newActivity = req.body;
+  let activities = await readJsonData(activitiesPatch);
+  let highestId = Math.max(...activities.map(a => a.id));
+
+  if (highestId == -Infinity) {
+    newActivity.id = 1;
+  } else {
+    newActivity.id = highestId + 1;
+  }
+
+  newActivity.date = new Date();
+
+  activities.push(newActivity);
+  await writeJsonData(activitiesPatch, activities);
+  res.status(201).json(newActivity);
+});
+
 app.listen(port, () => {
   console.log(`Node-express server is listening on port ${port}`);
 });

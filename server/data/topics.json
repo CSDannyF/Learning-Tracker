@@ -45,6 +45,11 @@
     "content": "The CSS box model is essentially a box that wraps around every HTML element. Every box consists of four parts: content, padding, borders and margins.",
     "url": "https://www.w3schools.com/css/css_boxmodel.asp",
     "date": "2026-05-07"
+  }, {
+    "content": "Dit is een nieuwe notitie",
+    "url": "https://www.w3schools.com/js/js_loops.asp",
+    "id": 4,
+    "date": "2026-05-09T14:03:55.398Z"
   }]
 }, {
   "id": 6,
@@ -59,4 +64,15 @@
   "name": "Dom-tree",
   "status": "not-started",
   "notes": []
+}, {
+  "id": 8,
+  "skillId": 4,
+  "name": "Spring",
+  "status": "not-started",
+  "notes": [{
+    "content": "Dit is een nieuwe notitie",
+    "url": "https://www.w3schools.com/js/js_loops.asp",
+    "id": 2,
+    "date": "2026-05-09T14:02:56.714Z"
+  }]
 }]
