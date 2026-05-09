@@ -1,29 +1,24 @@
 [{
+  "id": 1,
+  "name": "HTML",
+  "categoryId": 1,
+  "description": "standard, foundational language used to create and structure content on web pages",
+  "notes": []
+}, {
+  "id": 2,
+  "name": "CSS",
+  "categoryId": 1,
+  "description": "Cascading Style Sheets",
+  "notes": []
+}, {
+  "id": 3,
+  "name": "Javascriptos",
+  "categoryId": 1,
+  "description": "Versatilos scripting language for web applications",
+  "notes": [{
+    "content": "Dit is een nieuwe notitie",
+    "url": "https://www.w3schools.com/js/js_loops.asp",
     "id": 1,
-    "name": "HTML",
-    "categoryId": 1,
-    "description": "standard, foundational language used to create and structure content on web pages",
-    "notes": []
-  },
-  {
-    "id": 2,
-    "name": "CSS",
-    "categoryId": 1,
-    "description": "Cascading Style Sheets",
-    "notes": []
-  },
-  {
-    "id": 3,
-    "name": "Javascript",
-    "categoryId": 1,
-    "description": "Versatile scripting language for web applications",
-    "notes": []
-  },
-  {
-    "id": 4,
-    "name": "Java",
-    "categoryId": 2,
-    "description": "Backend language",
-    "notes": []
-  }
-]
+    "date": "2026-05-09T13:07:04.039Z"
+  }]
+}]

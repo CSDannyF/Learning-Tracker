@@ -68,7 +68,7 @@ app.post('/api/categories', async (req, res) => {
   res.status(201).json(newCategory);
 });
 
-// Put Category
+// Update Category
 app.put('/api/categories/:id', async (req, res) => {
   const updatedCategory = req.body;
   let categories = await readJsonData(categoriesPath);
@@ -95,7 +95,7 @@ app.delete('/api/categories/:id', async (req, res) => {
   const index = categories.findIndex(c => c.id == req.params.id);
 
   if (index == -1) {
-    res.status(404).send("id was not found");
+    res.status(404).send("Category id was not found");
   } else {
 
     // skill id's ophalen voor de skills die verwijderd moeten worden
@@ -119,6 +119,141 @@ app.delete('/api/categories/:id', async (req, res) => {
     await writeJsonData(topicsPath, topics);
     await writeJsonData(activitiesPatch, activities);
     res.status(200).end();
+  }
+});
+
+// Get all Skills from a Category
+app.get('/api/categories/:id/skills', async (req, res) => {
+  let skills = await readJsonData(skillsPath);
+
+  skills = skills.filter(skill => skill.categoryId == req.params.id);
+  res.json(skills);
+});
+
+// Post new Skill
+app.post('/api/categories/:id/skills', async (req, res) => {
+  let newSkill = req.body;
+
+  if (!newSkill.name || !newSkill.description) {
+    res.status(400).send("Not all fields are here");
+  } else {
+    const categories = await readJsonData(categoriesPath);
+    const skills = await readJsonData(skillsPath);
+
+    const index = categories.findIndex(c => c.id == req.params.id);
+    let highestId = Math.max(...skills.map(s => s.id));
+
+
+    if (index == -1) {
+      res.status(404).send("Category id was not found");
+    } else {
+      if (highestId == -Infinity) {
+        newSkill.id = 1;
+      } else {
+        newSkill.id = highestId + 1;
+      }
+
+      newSkill.categoryId = parseInt(req.params.id);
+      skills.push(newSkill);
+
+      await writeJsonData(skillsPath, skills);
+    }
+    res.status(201).json(newSkill);
+  }
+});
+
+// Update Skill
+app.put('/api/skills/:id', async (req, res) => {
+  const skills = await readJsonData(skillsPath);
+  const updatedSkill = req.body;
+
+  let index = skills.findIndex(skill => skill.id == req.params.id)
+
+  if (index == -1) {
+    res.status(404).send("Skill id was not found");
+  } else {
+    skills[index].name = updatedSkill.name;
+    skills[index].description = updatedSkill.description;
+    await writeJsonData(skillsPath, skills);
+    res.status(200).json(skills[index]);
+  }
+});
+
+// Delete Skill (Cascade)
+app.delete('/api/skills/:id', async (req, res) => {
+  let skills = await readJsonData(skillsPath);
+  let topics = await readJsonData(topicsPath);
+  let activities = await readJsonData(activitiesPatch);
+  const skillId = parseInt(req.params.id);
+  const index = skills.findIndex(skill => skill.id == skillId);
+
+  if (index == -1) {
+    res.status(404).send("Skill id not found");
+  } else {
+    // Bijhorende topics verwijderen
+    topics = topics.filter(topic => topic.skillId != skillId);
+    skills.splice(index, 1);
+
+    // bijhorende activities verwijderen
+    activities = activities.filter(activity => activity.skillId != skillId);
+
+    await writeJsonData(skillsPath, skills);
+    await writeJsonData(topicsPath, topics);
+    await writeJsonData(activitiesPatch, activities);
+    res.status(200).end();
+  }
+});
+
+// Post add note to skill
+app.post('/api/skills/:id/notes', async (req, res) => {
+  let skills = await readJsonData(skillsPath);
+  const skillId = parseInt(req.params.id);
+  const index = skills.findIndex(skill => skill.id == skillId);
+  let highestId;
+
+  if (index == -1) {
+    res.status(404).send("Skill id not found");
+  } else {
+
+    if (skills[index].notes) {
+      highestId = Math.max(...skills[index].notes.map(n => n.id));
+    }
+
+    const newNote = req.body;
+
+    if (highestId == -Infinity) {
+      newNote.id = 1;
+    } else {
+      newNote.id = highestId + 1;
+    }
+    newNote.date = new Date();
+    skills[index].notes.push(newNote);
+    await writeJsonData(skillsPath, skills);
+    res.status(201).send(newNote);
+  }
+});
+
+// Delete note from skill
+app.delete('/api/skills/:id/notes/:noteId', async (req, res) => {
+  let skills = await readJsonData(skillsPath);
+  const skillId = parseInt(req.params.id);
+  const noteId = parseInt(req.params.noteId);
+  const skillIndex = skills.findIndex(skill => skill.id == skillId);
+
+  console.log(skillId)
+  console.log(skillIndex)
+
+  if (skillIndex == -1) {
+    res.status(404).send("Skill id not found");
+  } else {
+    const noteIndex = skills[skillIndex].notes.findIndex(note => note.id === noteId);
+    if (noteIndex == -1) {
+      res.status(404).send("Note id not found");
+    } else {
+      skills[skillIndex].notes.splice(noteIndex, 1);
+      await writeJsonData(skillsPath, skills);
+      res.status(200).end();
+    }
   }
 });
 
