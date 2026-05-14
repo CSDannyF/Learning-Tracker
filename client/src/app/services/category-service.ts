@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 import { Category } from '../models/category';
-import { HttpClient } from '@angular/common/http';
+import { SkillService } from './skill-service';
+import { TopicService } from './topic-service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class CategoryService {
   private url = 'http://localhost:3000/api/categories';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private skillService: SkillService, private topicService: TopicService) {}
 
    getCategories$(): Observable<Category[]> {
       return this.http.get<any[]>(this.url)

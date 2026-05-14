@@ -9,12 +9,12 @@ export class Skill {
   notes: Note[] = [];
   topics: Topic[] = [];
 
-  constructor(id: number = 0, name: string, categoryId: number, description: string, notes: Note[], topics: Topic[]) {
+  constructor(id: number = 0, name: string, categoryId: number, description: string, notes: Note[]) {
     this.id = id;
     this.name = name;
     this.categoryId = categoryId;
     this.description = description;
     this.notes = notes;
-    this.topics = topics;
+    this.topics = [];
   }
 }
