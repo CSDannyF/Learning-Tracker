@@ -112,7 +112,6 @@ app.delete('/api/categories/:id', async (req, res) => {
     // hetzelfde als bij de topics want elke activity heeft een skillId
     activities = activities.filter(activity => !skillIds.includes(activity.skillId));
 
-    //juist maar even in comments
     categories.splice(index, 1);
     await writeJsonData(categoriesPath, categories);
     await writeJsonData(skillsPath, skills);
@@ -127,6 +126,7 @@ app.get('/api/categories/:id/skills', async (req, res) => {
   let skills = await readJsonData(skillsPath);
 
   skills = skills.filter(skill => skill.categoryId == req.params.id);
+  console.log("get all categories");
   res.json(skills);
 });
 
