@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable, map } from 'rxjs';
+import { Observable, map, firstValueFrom } from 'rxjs';
 
 import { Skill } from '../models/skill';
 import { Note } from '../models/note';
@@ -15,7 +15,7 @@ export class SkillService {
 
   // Server Get Skills by categoryId
   getSkillsByCategoryId$(categoryId: number): Observable<Skill[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/categories/${categoryId}/skills`)
+    return this.http.get<any[]>(`${this.baseUrl}categories/${categoryId}/skills`)
     .pipe(map((skillLiteralArray: any[]) => {
       return skillLiteralArray.map(skillLiteral => new Skill(
         skillLiteral.id,
@@ -54,27 +54,27 @@ export class SkillService {
 
   // Open Service methods
 
-  getSkillsByCategory(categoryId: number): Observable<Skill[]> {
-    return this.getSkillsByCategoryId$(categoryId);
+  getSkillsByCategory(categoryId: number): Promise<Skill[]> {
+    return firstValueFrom(this.getSkillsByCategoryId$(categoryId));
   }
 
-  addSkillToCategory(categoryId: number, newSkill: Skill): Observable<Skill> {
-    return this.addSkillToCategory$(categoryId, newSkill);
+  addSkillToCategory(categoryId: number, newSkill: Skill): Promise<Skill> {
+    return firstValueFrom(this.addSkillToCategory$(categoryId, newSkill));
   }
 
-  updateSkill(skillId: number, updatedSkill: Skill): Observable<Skill> {
-    return this.updateSkill$(skillId, updatedSkill);
+  updateSkill(skillId: number, updatedSkill: Skill): Promise<Skill> {
+    return firstValueFrom(this.updateSkill$(skillId, updatedSkill));
   }
 
-  deleteSkill(skillId: number): Observable<void> {
-    return this.deleteSkill$(skillId);
+  deleteSkill(skillId: number): Promise<void> {
+    return firstValueFrom(this.deleteSkill$(skillId));
   }
 
-  addNoteToSkill(skillId: number, note: Note): Observable<Note> {
-    return this.addNoteToSkill$(skillId, note);
+  addNoteToSkill(skillId: number, note: Note): Promise<Note> {
+    return firstValueFrom(this.addNoteToSkill$(skillId, note));
   }
 
-  deleteNoteFromSkill(skillId: number, noteId: number): Observable<void> {
-    return this.deleteNoteFromSkill$(skillId, noteId);
+  deleteNoteFromSkill(skillId: number, noteId: number): Promise<void> {
+    return firstValueFrom(this.deleteNoteFromSkill$(skillId, noteId));
   }
 }

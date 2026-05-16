@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, firstValueFrom } from 'rxjs';
 import { Topic } from '../models/topic';
 import { Note } from '../models/note';
 
@@ -54,27 +54,27 @@ export class TopicService {
 
   // Open Service methods
 
-  getTopicsBySkill(skillId: number): Observable<Topic[]> {
-    return this.getTopicsBySkillId$(skillId);
+  getTopicsBySkill(skillId: number): Promise<Topic[]> {
+    return firstValueFrom(this.getTopicsBySkillId$(skillId));
   }
 
-  addTopicToSkill(skillId: number, newTopic: Topic): Observable<Topic> {
-    return this.addTopicToSkill$(skillId, newTopic);
+  addTopicToSkill(skillId: number, newTopic: Topic): Promise<Topic> {
+    return firstValueFrom(this.addTopicToSkill$(skillId, newTopic));
   }
 
-  updateTopic(topicId: number, updatedTopic: Topic): Observable<Topic> {
-    return this.updateTopic$(topicId, updatedTopic);
+  updateTopic(topicId: number, updatedTopic: Topic): Promise<Topic> {
+    return firstValueFrom(this.updateTopic$(topicId, updatedTopic));
   }
 
-  deleteTopic(topicId: number): Observable<void> {
-    return this.deleteTopic$(topicId);
+  deleteTopic(topicId: number): Promise<void> {
+    return firstValueFrom(this.deleteTopic$(topicId));
   }
 
-  addNoteToTopic(topicId: number, newNote: Note): Observable<Note> {
-    return this.addNoteToTopic$(topicId, newNote);
+  addNoteToTopic(topicId: number, newNote: Note): Promise<Note> {
+    return firstValueFrom(this.addNoteToTopic$(topicId, newNote));
   }
 
-  deleteNoteFromTopic(topicId: number, noteId: number): Observable<void> {
-    return this.deleteNoteFromTopic$(topicId, noteId);
+  deleteNoteFromTopic(topicId: number, noteId: number): Promise<void> {
+    return firstValueFrom(this.deleteNoteFromTopic$(topicId, noteId));
   }
 }

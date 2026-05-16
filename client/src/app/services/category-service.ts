@@ -37,8 +37,30 @@ export class CategoryService {
       return this.http.delete<void>(`${this.url}/${id}`);
     }
 
-  getCategories(): Promise<Category[]> {
-    return firstValueFrom(this.getCategories$());
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+  async getCategories(): Promise<Category[]> {
+    let categories = await firstValueFrom(this.getCategories$())
+    await Promise.all(categories.map(async category => {
+      let skills = await this.skillService.getSkillsByCategory(category.id);
+
+      await Promise.all(skills.map(async skill => {
+        let topics= await this.topicService.getTopicsBySkill(skill.id);
+        skill.topics = topics;
+      }))
+      category.skills = skills
+    }))
+
+    categories.forEach(category => {
+      console.log(category.name);
+      category.skills.forEach(skill => {
+        console.log(" -  " + skill.name);
+        skill.topics.forEach(topic => {
+          console.log(" - -  " + topic.name);
+        })
+      })
+    })
+
+    return categories//firstValueFrom(this.getCategories$());
   }
 
   addCategory(newCategory: Category): Promise<Category> {
