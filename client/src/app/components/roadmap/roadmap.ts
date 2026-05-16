@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category-service';
+import { CategoryComponent } from "../category-component/category-component";
 
 @Component({
   selector: 'app-roadmap',
-  imports: [],
+  imports: [CategoryComponent],
   templateUrl: './roadmap.html',
   styleUrl: './roadmap.css',
 })

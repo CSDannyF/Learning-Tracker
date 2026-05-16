@@ -1,5 +1,5 @@
 <div>
   @for (category of categories; track category.id) {
-  <p> {{ category.name }}</p>
+  <app-category-component [category]="category" />
   }
 </div>

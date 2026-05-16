@@ -51,11 +51,8 @@ export class CategoryService {
     }))
 
     categories.forEach(category => {
-      console.log(category.name);
       category.skills.forEach(skill => {
-        console.log(" -  " + skill.name);
         skill.topics.forEach(topic => {
-          console.log(" - -  " + topic.name);
         })
       })
     })
