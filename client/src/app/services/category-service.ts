@@ -57,7 +57,7 @@ export class CategoryService {
       })
     })
 
-    return categories//firstValueFrom(this.getCategories$());
+    return categories;
   }
 
   addCategory(newCategory: Category): Promise<Category> {

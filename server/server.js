@@ -126,7 +126,6 @@ app.get('/api/categories/:id/skills', async (req, res) => {
   let skills = await readJsonData(skillsPath);
 
   skills = skills.filter(skill => skill.categoryId == req.params.id);
-  console.log("get all categories");
   res.json(skills);
 });
 
