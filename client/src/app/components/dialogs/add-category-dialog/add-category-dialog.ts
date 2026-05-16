@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 
 import { Category } from '../../../models/category';
-import { CategoryService } from '../../../services/category-service';
 
 @Component({
   selector: 'app-add-category-dialog',
@@ -23,13 +22,12 @@ export class AddCategoryDialog {
   @Output()
   closeDialog: EventEmitter<void> = new EventEmitter<void>;
 
-  errorMessage = ``;
-
   @Input()
   existingCategories: Category[] = [];
 
   category: Partial<Category> = {};
   isInputValid: boolean = true;
+  errorMessage = ``;
 
   onClose(): void {
     this.closeDialog.emit();
@@ -39,8 +37,10 @@ export class AddCategoryDialog {
     this.isInputValid = true;
     this.errorMessage = ``;
 
-    if (this.category.name == "") {
-      this.errorMessage = `Categorie naam mag niet leeg zijn`
+    // Check als name null of leeg is " "
+    if (!this.category.name || this.category.name.trim() == "") {
+      this.errorMessage = `Categorie naam mag niet leeg zijn.`;
+      this.isInputValid = false;
     }
 
     this.existingCategories.forEach(cat => {

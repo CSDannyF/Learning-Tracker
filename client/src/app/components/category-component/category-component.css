@@ -10,9 +10,18 @@
 }
 
 .tree .mat-nested-tree-node div[role=group] {
-  padding-left: 60px;
+  padding-left: 20px;
 }
 
 h2 {
   font-weight: 400;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+}
+
+.add-skill-icon {
+  color: #8F0045;
 }

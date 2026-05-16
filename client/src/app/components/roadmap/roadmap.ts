@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category-service';
@@ -35,8 +35,8 @@ export class Roadmap implements OnInit {
 
   async addNewCategory(newCategory: Category) {
   
-    const saved = await this.categoryService.addCategory(newCategory)
-    this.categories.push(saved);
+    const savedCategory = await this.categoryService.addCategory(newCategory)
+    this.categories.push(savedCategory);
     this.newCategoryDialog?.nativeElement.close();
     this.cdr.detectChanges();
   }
