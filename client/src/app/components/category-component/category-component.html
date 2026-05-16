@@ -9,7 +9,13 @@
   <mat-nested-tree-node *matTreeNodeDef="let node">
     <button mat-icon-button disabled></button>
     {{ node.name }}
+    @if (node.isSkill) {
+    <button matIconButton (click)="openNewTopicDialog(node.id); $event.stopPropagation()">
+      <mat-icon class="add-topic-icon">add</mat-icon>
+    </button>
+    }
   </mat-nested-tree-node>
+
   <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodeToggle
     [cdkTreeNodeTypeaheadLabel]="node.name">
     <div class="mat-tree-node">
@@ -19,6 +25,9 @@
         </mat-icon>
       </button>
       {{ node.name }}
+      <button matIconButton (click)="openNewTopicDialog(node.id); $event.stopPropagation()">
+        <mat-icon class="add-topic-icon">add</mat-icon>
+      </button>
     </div>
     <div [class.tree-invisible]="!tree.isExpanded(node)" role="group">
       <ng-container matTreeNodeOutlet></ng-container>
@@ -29,4 +38,10 @@
 <dialog #newSkillDialog>
   <app-add-skill-dialog [categoryId]="category.id" (newSkill)="addNewSkill($event)"
     (closeDialog)="newSkillDialog.close()"></app-add-skill-dialog>
+</dialog>
+
+<dialog #newTopicDialog>
+  <app-add-topic-dialog [skillId]="selectedSkillId" (newTopic)="addNewTopic($event)"
+    (closeDialog)="newTopicDialog.close()">
+  </app-add-topic-dialog>
 </dialog>

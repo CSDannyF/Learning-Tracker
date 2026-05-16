@@ -18,9 +18,6 @@ export class AddSkillDialog {
   @Input()
   categoryId!: number;
 
-  @Input()
-  existingSkills: Skill[] = [];
-
   @Output()
   newSkill: EventEmitter<Skill> = new EventEmitter<Skill>;
 
@@ -28,7 +25,7 @@ export class AddSkillDialog {
   closeDialog: EventEmitter<void> = new EventEmitter<void>;
 
   skill: Partial<Skill> = {};
-  isInputValid: boolean= true;
+  isInputValid: boolean = true;
   errorMessage = ``;
 
   onSubmit() {
@@ -36,11 +33,9 @@ export class AddSkillDialog {
     this.errorMessage = ``;
 
     if (!this.skill.name || this.skill.name?.trim() == "") {
-      this.errorMessage = `Skill naam mag niet leef zijn.`;
+      this.errorMessage = `Skill naam mag niet leeg zijn.`;
       this.isInputValid = false;
-    }
-
-    if (this.isInputValid) {
+    } else {
       let skill = new Skill(
         0,
         this.skill.name ?? "",
@@ -52,7 +47,7 @@ export class AddSkillDialog {
     }
   }
 
-   onClose(): void {
+   onClose() {
     this.closeDialog.emit();
    }
 }
