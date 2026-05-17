@@ -5,4 +5,18 @@
   "type": "worked-on",
   "id": 1,
   "date": "2026-05-09T19:05:48.562Z"
+}, {
+  "id": 2,
+  "date": "2026-05-17T21:16:04.003Z",
+  "skillId": 3,
+  "topicId": 6,
+  "newStatus": "done",
+  "type": "worked-on"
+}, {
+  "id": 3,
+  "date": "2026-05-17T21:17:50.479Z",
+  "skillId": 3,
+  "topicId": 7,
+  "newStatus": "in-progress",
+  "type": "status-changed"
 }]
