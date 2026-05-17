@@ -15,7 +15,9 @@
         @for (note of skill()!.notes; track note.id) {
         <p>{{ note.date | date:'dd/MM/yyyy'}}</p>
         <p>{{ note.content }}</p>
-        <a href='{{note.url}}'>{{ note.url }}</a>
+        @if (note.url) {
+        <a [href]="note.url">{{ note.url }}</a>
+        }
         <hr>
         }
       </mat-expansion-panel>
@@ -23,6 +25,8 @@
   </mat-card-content>
 
   <h1>Topics</h1>
+  <p>Progress: {{ skill()!.topics | progress }}%</p>
+  <mat-progress-bar mode="determinate" [value]="skill()!.topics | progress"></mat-progress-bar>
   @for (topic of skill()!.topics; track topic.id) {
   <mat-card appearance="raised">
     <mat-card-header>
@@ -31,10 +35,9 @@
     <mat-card-content>
       @if (isTopicStarted(topic)) {
       <p>Start date: {{ topic.startDate }}</p>
-      <p>Status: {{ topic.status }}</p>
-      } @else {
-      <p>Status: {{ topic.status }}</p>
       }
+      <p>Status: {{ topic.status | status }}</p>
+
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
