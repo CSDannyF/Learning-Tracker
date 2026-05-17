@@ -418,7 +418,9 @@ app.post('/api/activities', async (req, res) => {
     newActivity.id = highestId + 1;
   }
 
-  newActivity.date = new Date();
+  if (!newActivity.date) {
+    newActivity.date = new Date();
+  }
 
   activities.push(newActivity);
   await writeJsonData(activitiesPatch, activities);
