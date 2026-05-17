@@ -1,0 +1,12 @@
+.skill-card {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+.topic-title {
+  font-size: large;
+}

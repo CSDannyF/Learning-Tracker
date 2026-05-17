@@ -129,6 +129,18 @@ app.get('/api/categories/:id/skills', async (req, res) => {
   res.json(skills);
 });
 
+// Get Skill by skillId
+app.get('/api/skills/:id', async (req, res) => {
+  let skills = await readJsonData(skillsPath);
+  const skill = skills.find(s => s.id == req.params.id)
+
+  if (!skill) {
+    res.status(404).send("Skill is was not found");
+  } else {
+    res.json(skill);
+  }
+})
+
 // Post new Skill
 app.post('/api/categories/:id/skills', async (req, res) => {
   let newSkill = req.body;

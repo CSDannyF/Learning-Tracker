@@ -35,6 +35,9 @@ export class AddSkillDialog {
     if (!this.skill.name || this.skill.name?.trim() == "") {
       this.errorMessage = `Skill naam mag niet leeg zijn.`;
       this.isInputValid = false;
+    } else if (!this.skill.description || this.skill.description?.trim() == "") {
+      this.errorMessage = `De omschrijving mag niet leeg zijn.`
+      this.isInputValid = false;
     } else {
       let skill = new Skill(
         0,

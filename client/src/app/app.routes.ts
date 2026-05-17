@@ -6,5 +6,5 @@ import { SkillDetail } from './components/skill-detail/skill-detail';
 export const routes: Routes = [
   { path: "dashboard", component: Dashboard },
   { path: "roadmap", component: Roadmap },
-  { path: "skill-detail", component: SkillDetail }
+  { path: "roadmap/:skillId", component: SkillDetail }
 ];

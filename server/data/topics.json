@@ -64,4 +64,58 @@
   "name": "Dom-tree",
   "status": "not-started",
   "notes": []
+}, {
+  "id": 8,
+  "skillId": 3,
+  "name": "Loops",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 9,
+  "skillId": 3,
+  "name": "Events",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 10,
+  "skillId": 4,
+  "name": "Spring",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 11,
+  "skillId": 5,
+  "name": "Veiligheid",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 12,
+  "skillId": 2,
+  "name": "Typografie",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 13,
+  "skillId": 6,
+  "name": ".NET",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 14,
+  "skillId": 4,
+  "name": "JPA",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 15,
+  "skillId": 4,
+  "name": "Lombok",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 16,
+  "name": "Records",
+  "status": "not-started",
+  "skillId": 4,
+  "notes": []
 }]

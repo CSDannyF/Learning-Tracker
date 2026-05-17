@@ -1,1 +1,56 @@
-<p>skill-detail works!</p>
+@if (skill()) {
+<mat-card>
+  <h1>Skill Detail Pagina</h1>
+  <mat-card-header class="skill-card">
+    <mat-card-title>{{ skill()!.name }}</mat-card-title>
+    <mat-card-subtitle>{{ skill()!.description }}</mat-card-subtitle>
+
+  </mat-card-header>
+  <mat-card-content>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Notities</mat-panel-title>
+        </mat-expansion-panel-header>
+        @for (note of skill()!.notes; track note.id) {
+        <p>{{ note.date | date:'dd/MM/yyyy'}}</p>
+        <p>{{ note.content }}</p>
+        <a href='{{note.url}}'>{{ note.url }}</a>
+        <hr>
+        }
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+
+  <h1>Topics</h1>
+  @for (topic of skill()!.topics; track topic.id) {
+  <mat-card appearance="raised">
+    <mat-card-header>
+      <mat-card-title class="topic-title">{{ topic.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (isTopicStarted(topic)) {
+      <p>Start date: {{ topic.startDate }}</p>
+      <p>Status: {{ topic.status }}</p>
+      } @else {
+      <p>Status: {{ topic.status }}</p>
+      }
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Notities</mat-panel-title>
+          </mat-expansion-panel-header>
+          @for (note of topic!.notes; track note.id) {
+          <p>{{ note.date | date:'dd/MM/yyyy'}}</p>
+          <p>{{ note.content }}</p>
+          <hr>
+          }
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+
+  </mat-card>
+  }
+</mat-card>
+
+}

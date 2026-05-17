@@ -12,10 +12,11 @@ import { AddSkillDialog } from "../dialogs/add-skill-dialog/add-skill-dialog";
 import { SkillService } from '../../services/skill-service';
 import { AddTopicDialog } from "../dialogs/add-topic-dialog/add-topic-dialog";
 import { TopicService } from '../../services/topic-service';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-category-component',
-  imports: [MatTreeModule, MatButtonModule, MatIconModule, AddSkillDialog, MatIconButton, AddTopicDialog],
+  imports: [MatTreeModule, MatButtonModule, MatIconModule, AddSkillDialog, MatIconButton, AddTopicDialog, RouterLink],
   templateUrl: './category-component.html',
   styleUrl: './category-component.css',
 })

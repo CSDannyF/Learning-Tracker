@@ -4,6 +4,7 @@ import { Observable, map, firstValueFrom } from 'rxjs';
 
 import { Skill } from '../models/skill';
 import { Note } from '../models/note';
+import { TopicService } from './topic-service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { Note } from '../models/note';
 export class SkillService {
   private baseUrl = 'http://localhost:3000/api/'
 
-  constructor(private http: HttpClient) {}
+  constructor(private topicService: TopicService ,private http: HttpClient) {}
 
   // Server Get Skills by categoryId
   getSkillsByCategoryId$(categoryId: number): Observable<Skill[]> {
@@ -25,6 +26,19 @@ export class SkillService {
         skillLiteral.notes
       ))
     }));
+  }
+
+  // Server Get Skill by skillId
+  getSkillBySkillId$(skillId: number): Observable<Skill> {
+    return this.http.get<any>(`${this.baseUrl}skills/${skillId}`)
+    .pipe(map((skillLiteral: any) => 
+      skillLiteral = new Skill(
+        skillLiteral.id,
+        skillLiteral.name,
+        skillLiteral.categoryId,
+        skillLiteral.description,
+        skillLiteral.notes
+      )));
   }
 
   // Server Post new Skill by categoryId
@@ -56,6 +70,12 @@ export class SkillService {
 
   getSkillsByCategory(categoryId: number): Promise<Skill[]> {
     return firstValueFrom(this.getSkillsByCategoryId$(categoryId));
+  }
+
+  async getSkillBySkillId(skillId: number): Promise<Skill> {
+    let skill = await firstValueFrom(this.getSkillBySkillId$(skillId));
+    skill.topics = await this.topicService.getTopicsBySkill(skillId);
+    return skill;
   }
 
   addSkillToCategory(categoryId: number, newSkill: Skill): Promise<Skill> {

@@ -24,7 +24,7 @@
           {{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
         </mat-icon>
       </button>
-      {{ node.name }}
+      <a [routerLink]="node.link">{{ node.name }}</a>
       <button matIconButton (click)="openNewTopicDialog(node.id); $event.stopPropagation()">
         <mat-icon class="add-topic-icon">add</mat-icon>
       </button>
