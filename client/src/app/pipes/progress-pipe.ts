@@ -9,9 +9,6 @@ export class ProgressPipe implements PipeTransform {
   transform(topics: Topic[], ...args: unknown[]): number {
     let topicsDone = topics.filter(t => t.status == TopicStatus.Done).length;
     let percentage = (topicsDone / topics.length )*100;
-    console.log(topicsDone)
-    console.log(topics.length)
-    console.log(percentage)
     if (percentage == Infinity) return 0;
     return percentage;
   }

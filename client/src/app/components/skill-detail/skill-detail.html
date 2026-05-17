@@ -28,15 +28,39 @@
   <p>Progress: {{ skill()!.topics | progress }}%</p>
   <mat-progress-bar mode="determinate" [value]="skill()!.topics | progress"></mat-progress-bar>
   @for (topic of skill()!.topics; track topic.id) {
+  @if (isEditing.get(topic.id)) {
+  <mat-form-field>
+    <mat-label for="name">Topic name</mat-label>
+    <input matInput type="text" id="name" name="name" [(ngModel)]="topic.name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{ topic.status | status}}</mat-label>
+    <mat-select [(ngModel)]="topic.status">
+      <mat-option [value]="TopicStatus.InProgress">{{ TopicStatus.InProgress | status}}</mat-option>
+      <mat-option [value]="TopicStatus.Paused">{{ TopicStatus.Paused | status}}</mat-option>
+      <mat-option [value]="TopicStatus.Done">{{ TopicStatus.Done | status }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button matButton (click)="saveEdit(topic)">
+    <mat-icon>save</mat-icon>
+  </button>
+  <button matButton (click)="cancelEdit(topic)">
+    <mat-icon>clear</mat-icon>
+  </button>
+  } @else {
   <mat-card appearance="raised">
     <mat-card-header>
       <mat-card-title class="topic-title">{{ topic.name }}</mat-card-title>
+      <button matIconButton (click)="startEditing(topic)">
+        <mat-icon>create</mat-icon>
+      </button>
     </mat-card-header>
     <mat-card-content>
       @if (isTopicStarted(topic)) {
       <p>Start date: {{ topic.startDate }}</p>
       }
       <p>Status: {{ topic.status | status }}</p>
+
 
       <mat-accordion>
         <mat-expansion-panel>
@@ -54,6 +78,8 @@
 
   </mat-card>
   }
-</mat-card>
+  }
 
+
+</mat-card>
 }

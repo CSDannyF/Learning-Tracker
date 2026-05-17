@@ -8,13 +8,16 @@ export class StatusPipe implements PipeTransform {
   transform(value: TopicStatus, ...args: unknown[]): string {
     switch (value) {
       case TopicStatus.Done:
-        return "Toppic Done";
+        return "Topic Done";
 
       case TopicStatus.InProgress:
         return "Topic in progress";
 
       case TopicStatus.NotStarted:
-        return "Topic is not started"
+        return "Topic is not started";
+
+      case TopicStatus.Paused:
+        return "Topic is paused";
         
       default:
         return "Topic has no status"
