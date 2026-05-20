@@ -123,6 +123,13 @@ export class SkillDetail implements OnInit {
       topic.status,
       new Date()
     );
+    
+    if (topic.status === TopicStatus.NotStarted || topic.status === TopicStatus.Paused) {
+      topic.status = TopicStatus.InProgress;
+      topic.startDate = new Date();
+      this.topicService.updateTopic(topic.id, topic);
+    }
+
     await this.activityService.addNewActivity(activity);
     this.workedOnTopicToday().add(topic.id);
     this.cdr.detectChanges();
