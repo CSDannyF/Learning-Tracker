@@ -4,6 +4,7 @@ import { Roadmap } from './components/roadmap/roadmap';
 import { SkillDetail } from './components/skill-detail/skill-detail';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: "dashboard", component: Dashboard },
   { path: "roadmap", component: Roadmap },
   { path: "roadmap/:skillId", component: SkillDetail }
