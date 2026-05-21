@@ -1,3 +1,24 @@
-<p>total known skills = {{ totalKnownSkills }}</p>
-<p>Total skills in progress = {{ skillsInProgress }}</p>
-<p>Streak = {{ learningStreak }}</p>
+<div>
+
+  <div class="kpi-cards">
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Learning Streak</mat-card-title>
+        <mat-card-subtitle>{{ learningStreak }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Total Known Skills</mat-card-title>
+        <mat-card-subtitle>{{ totalKnownSkills }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Skills in Progress</mat-card-title>
+        <mat-card-subtitle>{{ skillsInProgress }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+</div>

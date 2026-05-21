@@ -1,4 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card'
+
 import { CategoryService } from '../../services/category-service';
 import { ActivityService } from '../../services/activity-service';
 import { Category } from '../../models/category';
@@ -7,7 +9,7 @@ import { TopicStatus } from '../../models/topic-status';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [MatCardModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
