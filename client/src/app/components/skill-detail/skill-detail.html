@@ -33,14 +33,18 @@
     <mat-label for="name">Topic name</mat-label>
     <input matInput type="text" id="name" name="name" [(ngModel)]="topic.name">
   </mat-form-field>
+
+  @if (isTopicDone(topic)) {
   <mat-form-field>
     <mat-label>{{ topic.status | status}}</mat-label>
-    <mat-select [(ngModel)]="topic.status">
+    <mat-select [(ngModel)]="topic.status" [disabled]="workedOnTopicToday().has(topic.id)">
       <mat-option [value]="TopicStatus.InProgress">{{ TopicStatus.InProgress | status}}</mat-option>
       <mat-option [value]="TopicStatus.Paused">{{ TopicStatus.Paused | status}}</mat-option>
       <mat-option [value]="TopicStatus.Done">{{ TopicStatus.Done | status }}</mat-option>
     </mat-select>
   </mat-form-field>
+  }
+
   <button matButton (click)="saveEdit(topic)">
     <mat-icon>save</mat-icon>
   </button>
@@ -61,7 +65,10 @@
     </mat-card-header>
     <mat-card-content>
       @if (isTopicStarted(topic)) {
-      <p>Start date: {{ topic.startDate | date}}</p>
+      <p>Start date: {{ topic.startDate | date }}</p>
+      }
+      @if (isTopicDone(topic)) {
+      <p>End date: {{ topic.endDate | date }}</p>
       }
       <p>Status: {{ topic.status | status }}</p>
 

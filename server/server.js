@@ -322,6 +322,8 @@ app.put('/api/topics/:id', async (req, res) => {
     topics[topicIndex].status = updatedTopic.status;
     topics[topicIndex].startDate = updatedTopic.startDate;
 
+    if (updatedTopic.status === 'done') topics[topicIndex].endDate = new Date();
+
     await writeJsonData(topicsPath, topics);
     res.status(200).json(updatedTopic);
   }

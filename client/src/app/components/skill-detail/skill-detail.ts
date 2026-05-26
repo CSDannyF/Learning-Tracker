@@ -53,6 +53,10 @@ export class SkillDetail implements OnInit {
     return topic.status !== TopicStatus.NotStarted;
   }
 
+  isTopicDone(topic: Topic): boolean {
+    return topic.status == TopicStatus.Done;
+  }
+
   // Start aanpassen Topic via inline editing
   startEditing(topic: Topic) {
     this.originalStatus.set(topic.id, topic.status);

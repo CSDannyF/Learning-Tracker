@@ -22,6 +22,7 @@ export class TopicService {
         topicLiteral.name,
         topicLiteral.status,
         topicLiteral.startDate,
+        topicLiteral.endDate,
         topicLiteral.notes
       ))
     }));
