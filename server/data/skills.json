@@ -2,8 +2,13 @@
   "id": 1,
   "name": "HTML",
   "categoryId": 1,
-  "description": "standard, foundational language used to create and structure content on web pages",
-  "notes": []
+  "description": "standaard, fundamentele taal die wordt gebruikt om content op webpagina's te creëren en te structureren Notitie toevoegen",
+  "notes": [{
+    "id": 1,
+    "content": "HTML W3 Schools",
+    "url": "https://www.w3schools.com/html/default.asp",
+    "date": "2026-05-27T10:15:39.219Z"
+  }]
 }, {
   "id": 2,
   "name": "CSS",

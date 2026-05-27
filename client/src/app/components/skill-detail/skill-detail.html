@@ -1,17 +1,21 @@
-<mat-card>
-  <h1>Skill Detail Pagina</h1>
-  <mat-card-header class="skill-card">
-    <mat-card-title>{{ skill()!.name }}</mat-card-title>
-    <mat-card-subtitle>{{ skill()!.description }}</mat-card-subtitle>
+<div class="container">
+  <div>
+    <h1>{{ skill()!.name }} Detail Pagina</h1>
+    <h2>{{ skill()!.description }}</h2>
 
-  </mat-card-header>
-  <mat-card-content>
-    <button matIconButton (click)="createSkillNote(skill()!)"
-      [disabled]="isAddingNoteToSkill.size > 0 || isAddingNoteToTopic.size > 0">
-      <mat-icon>add</mat-icon>
-    </button>
+    <div class="button-container">
+      <button matIconButton (click)="createSkillNote(skill()!)"
+        [disabled]="isAddingNoteToSkill.size > 0 || isAddingNoteToTopic.size > 0">
+        <mat-icon>add</mat-icon>
+      </button>
+      <p>Add Note</p>
+    </div>
+  </div>
 
-    <!-- Form voor het toevoegen van een Note aan een Skill -->
+
+
+  <!-- Form voor het toevoegen van een Note aan een Skill -->
+  <div>
     @if (isAddingNoteToSkill.get(skill()!.id)) {
     <div class="add-note">
       <mat-form-field>
@@ -52,12 +56,16 @@
         }
       </mat-expansion-panel>
     </mat-accordion>
-  </mat-card-content>
+  </div>
+
 
   <!-- Alle Topics van een Skill in een Card -->
-  <h1>Topics</h1>
-  <p>Progress: {{ skill()!.topics | progress }}%</p>
-  <mat-progress-bar mode="determinate" [value]="skill()!.topics | progress"></mat-progress-bar>
+  <div class="topics-header">
+    <h1>Topics</h1>
+    <p>Skill Progress: {{ skill()!.topics | progress }}%</p>
+    <mat-progress-bar mode="determinate" [value]="skill()!.topics | progress"></mat-progress-bar>
+  </div>
+
 
   <!-- Topics tonen via een for loop -->
   @for (topic of skill()!.topics; track topic.id) {
@@ -113,10 +121,14 @@
 
 
       <!-- Note toevoegen aan een Topic -->
-      <button matIconButton (click)="createTopicNote(topic)"
-        [disabled]="!isAddingNoteToTopic.has(topic.id) !!&& isAddingNoteToTopic.size != 0 || isAddingNoteToSkill.size > 0">
-        <mat-icon>add</mat-icon>
-      </button>
+      <div class="button-container">
+        <button matIconButton (click)="createTopicNote(topic)"
+          [disabled]="!isAddingNoteToTopic.has(topic.id) !!&& isAddingNoteToTopic.size != 0 || isAddingNoteToSkill.size > 0">
+          <mat-icon>add</mat-icon>
+        </button>
+        <p>Add Note</p>
+      </div>
+
       @if (isAddingNoteToTopic.get(topic.id)) {
       <div class="add-note">
         <mat-form-field>
@@ -160,4 +172,4 @@
   }
 
 
-</mat-card>
+</div>

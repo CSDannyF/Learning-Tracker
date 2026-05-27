@@ -1,13 +1,15 @@
-<div>
-  @for (category of categories; track category.id) {
-  <app-category-component [category]="category" />
-  }
+<div class="container">
+  <div>
+    @for (category of categories; track category.id) {
+    <app-category-component [category]="category" />
+    }
+  </div>
+
+  <button matButton="filled" (click)="openNewCategoryDialog()">Add Category</button>
+
+  <dialog #newCategoryDialog>
+    <app-add-category-dialog [existingCategories]="categories" (newCategory)="addNewCategory($event)"
+      (closeDialog)="newCategoryDialog.close()">
+    </app-add-category-dialog>
+  </dialog>
 </div>
-
-<button matButton="filled" (click)="openNewCategoryDialog()">Add Category</button>
-
-<dialog #newCategoryDialog>
-  <app-add-category-dialog [existingCategories]="categories" (newCategory)="addNewCategory($event)"
-    (closeDialog)="newCategoryDialog.close()">
-  </app-add-category-dialog>
-</dialog>

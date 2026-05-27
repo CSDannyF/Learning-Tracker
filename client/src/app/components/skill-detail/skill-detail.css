@@ -1,12 +1,41 @@
-.skill-card {
-  display: flex;
-  flex-direction: column;
-}
-
-h1 {
+h1,
+h2 {
   font-weight: 500;
 }
 
 .topic-title {
-  font-size: large;
+  font-size: 25px;
+}
+
+.container {
+  padding: 0 16px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.button-container {
+  display: flex;
+  line-height: 10px;
+}
+
+.topics-header {
+  margin: 5px 0 20px;
+}
+
+.add-note>* {
+  margin: 0 10px 0 0;
+}
+
+p {
+  font-size: 16px;
+}
+
+mat-expansion-panel {
+  max-width: 500px;
+}
+
+mat-card {
+  gap: 20px;
 }
