@@ -1,16 +1,18 @@
-<div>
-  <mat-card id="chart">
-    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [title]="chartOptions.title!"
-      [yaxis]="chartOptions.yaxis!" [xaxis]="chartOptions.xaxis!" [tooltip]="chartOptions.tooltip!">
-    </apx-chart>
-  </mat-card>
+  <div class="chart-container">
+    <mat-card>
+      <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [title]="chartOptions.title!"
+        [yaxis]="chartOptions.yaxis!" [xaxis]="chartOptions.xaxis!" [tooltip]="chartOptions.tooltip!">
+      </apx-chart>
+    </mat-card>
 
-  <mat-card>
-    <apx-chart [series]="lineChartOptions.series!" [chart]="lineChartOptions.chart!" [title]="lineChartOptions.title!"
-      [yaxis]="lineChartOptions.yaxis!" [xaxis]="lineChartOptions.xaxis!" [tooltip]="lineChartOptions.tooltip!"
-      [colors]="lineChartOptions.colors!">
-    </apx-chart>
-  </mat-card>
+    <mat-card>
+      <apx-chart [series]="lineChartOptions.series!" [chart]="lineChartOptions.chart!" [title]="lineChartOptions.title!"
+        [yaxis]="lineChartOptions.yaxis!" [xaxis]="lineChartOptions.xaxis!" [tooltip]="lineChartOptions.tooltip!"
+        [colors]="lineChartOptions.colors!">
+      </apx-chart>
+    </mat-card>
+  </div>
+
 
   <div class="kpi-cards">
     <mat-card appearance="outlined">
@@ -38,5 +40,3 @@
       </mat-card-header>
     </mat-card>
   </div>
-
-</div>

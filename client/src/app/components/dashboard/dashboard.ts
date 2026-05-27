@@ -130,7 +130,7 @@ export class Dashboard  implements OnInit {
       data: [...knownTopicsPerCategory.values()]
     }],
     chart: {
-      height: 600,
+      height: 400,
       type: 'radar'
     },
     title: {
@@ -199,7 +199,7 @@ export class Dashboard  implements OnInit {
       text: 'Monthly Topic Progression' 
     },
       chart: {
-        height: 350,
+        height: 400,
         type: 'line',
         zoom: {
           enabled: false

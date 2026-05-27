@@ -2,4 +2,13 @@
   display: flex;
   gap: 16px;
   justify-content: space-between;
+  padding: 20px 0;
+}
+
+mat-card {
+  margin-top: 20px;
+}
+
+mat-card:first-child {
+  max-width: 450px;
 }
