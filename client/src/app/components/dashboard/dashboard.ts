@@ -22,7 +22,8 @@ export type ChartOptions = {
   yaxis?: ApexYAxis | ApexYAxis[];
   title?: ApexTitleSubtitle;
   tooltip?: ApexTooltip;
-  colors?: string[]
+  colors?: string[];
+  labels?: any;
 }
 
 @Component({
@@ -45,8 +46,9 @@ export class Dashboard  implements OnInit {
   skillsInProgress: number = 0;
   learningStreak: number = 0;
 
-  chartOptions: Partial<ChartOptions> = {};
+  radarChartOptions: Partial<ChartOptions> = {};
   lineChartOptions: Partial<ChartOptions> = {};
+  pieChartOptions: Partial<ChartOptions> = {};
 
   async ngOnInit(): Promise<void> {
     this.categories = await this.categoryService.getCategories();
@@ -57,6 +59,7 @@ export class Dashboard  implements OnInit {
     this.calculateTotalKnownTopics();
     this.buildRadarChart();
     this.buildLineChart();
+    this.buildPieChart();
     this.cdr.detectChanges();
   }
 
@@ -124,7 +127,7 @@ export class Dashboard  implements OnInit {
     })
 
 
-    this.chartOptions = {
+    this.radarChartOptions = {
     series: [{
       name: 'Percentage done',
       data: [...knownTopicsPerCategory.values()]
@@ -155,11 +158,34 @@ export class Dashboard  implements OnInit {
   };
   }
 
+  buildPieChart() {
+    const topicsPerCategory = new Map();
+
+    this.categories.map(c => {
+      let topicsInCategory = 0;
+      c.skills.forEach(s => {
+        topicsInCategory += s.topics.length
+      })
+      topicsPerCategory.set(c.name, topicsInCategory);
+    })
+
+    this.pieChartOptions = {
+      series: [...topicsPerCategory.values()],
+      chart: {
+        width: 380,
+        type: 'pie'
+      },
+      labels: [...topicsPerCategory.keys()],
+      title: {
+        text: 'Topics Per Category' 
+      },
+    }
+  }
+
   buildLineChart() {
     const startedTopicsPerMonth = new Map();
     const finishedTopicsPerMonth = new Map();
     const today = new Date();
-    console.log(today.getFullYear())
 
     for (let i = 0; i < 12; i++) {
       startedTopicsPerMonth.set(i, 0);
@@ -195,8 +221,8 @@ export class Dashboard  implements OnInit {
           data: [...finishedTopicsPerMonth.values()],
         }
       ],
-          title: {
-      text: 'Monthly Topic Progression' 
+      title: {
+        text: 'Monthly Topic Progression' 
     },
       chart: {
         height: 400,

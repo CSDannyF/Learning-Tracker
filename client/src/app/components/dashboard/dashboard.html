@@ -1,11 +1,20 @@
   <div class="chart-container">
-    <mat-card>
-      <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [title]="chartOptions.title!"
-        [yaxis]="chartOptions.yaxis!" [xaxis]="chartOptions.xaxis!" [tooltip]="chartOptions.tooltip!">
+
+    <mat-card id="radar-chart">
+      <apx-chart [series]="radarChartOptions.series!" [chart]="radarChartOptions.chart!"
+        [title]="radarChartOptions.title!" [yaxis]="radarChartOptions.yaxis!" [xaxis]="radarChartOptions.xaxis!"
+        [tooltip]="radarChartOptions.tooltip!">
       </apx-chart>
     </mat-card>
 
-    <mat-card>
+    <mat-card id="pie-chart">
+      <apx-chart [series]="pieChartOptions.series!" [chart]="pieChartOptions.chart!" [title]="pieChartOptions.title!"
+        [yaxis]="pieChartOptions.yaxis!" [xaxis]="pieChartOptions.xaxis!" [labels]="pieChartOptions.labels!">
+      </apx-chart>
+    </mat-card>
+
+
+    <mat-card id="line-chart">
       <apx-chart [series]="lineChartOptions.series!" [chart]="lineChartOptions.chart!" [title]="lineChartOptions.title!"
         [yaxis]="lineChartOptions.yaxis!" [xaxis]="lineChartOptions.xaxis!" [tooltip]="lineChartOptions.tooltip!"
         [colors]="lineChartOptions.colors!">
