@@ -1,9 +1,9 @@
 <div>
-  <div id="chart">
+  <mat-card id="chart">
     <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [title]="chartOptions.title!"
-      [yaxis]="chartOptions.yaxis!" [xaxis]="chartOptions.xaxis!">
+      [yaxis]="chartOptions.yaxis!" [xaxis]="chartOptions.xaxis!" [tooltip]="chartOptions.tooltip!">
     </apx-chart>
-  </div>
+  </mat-card>
 
   <div class="kpi-cards">
     <mat-card appearance="outlined">
@@ -16,6 +16,12 @@
       <mat-card-header>
         <mat-card-title>Total Known Skills</mat-card-title>
         <mat-card-subtitle>{{ totalKnownSkills }}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+    <mat-card appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Total known Topics</mat-card-title>
+        <mat-card-subtitle>{{ totalKnownTopics }}</mat-card-subtitle>
       </mat-card-header>
     </mat-card>
     <mat-card appearance="outlined">

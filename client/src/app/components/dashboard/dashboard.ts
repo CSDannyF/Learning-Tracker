@@ -13,7 +13,7 @@ import { ActivityService } from '../../services/activity-service';
 import { Category } from '../../models/category';
 import { Activity } from '../../models/activity';
 import { TopicStatus } from '../../models/topic-status';
-import { ApexNonAxisChartSeries } from 'apexcharts';
+import { ApexDataLabels, ApexNonAxisChartSeries, ApexTooltip } from 'apexcharts';
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries | ApexNonAxisChartSeries;
@@ -21,6 +21,7 @@ export type ChartOptions = {
   xaxis?: ApexXAxis;
   yaxis?: ApexYAxis | ApexYAxis[];
   title?: ApexTitleSubtitle;
+  tooltip?: ApexTooltip;
 }
 
 @Component({
@@ -38,6 +39,7 @@ export class Dashboard  implements OnInit {
 
   topicsInSKill: number = 0;
   totalKnownSkills: number = 0;
+  totalKnownTopics: number = 0;
 
   skillsInProgress: number = 0;
   learningStreak: number = 0;
@@ -50,6 +52,7 @@ export class Dashboard  implements OnInit {
     this.calculateTotalKnownSkills();
     this.calculateSkillsInProgress();
     this.calculateLearningStreak();
+    this.calculateTotalKnownTopics();
     this.buildRadarChart();
     this.cdr.detectChanges();
   }
@@ -74,6 +77,16 @@ export class Dashboard  implements OnInit {
     })
   }
 
+  calculateTotalKnownTopics() {
+    this.categories.forEach(cat => {
+      cat.skills.forEach(skill => {
+        skill.topics.forEach(topic => {
+          if (topic.status === TopicStatus.Done) this.totalKnownTopics++;
+        })
+      })
+    })
+  }
+
   // Alle activiteiten mappen als string
   // Set verwijderd duplicaten, de spread [...] zet de set om naar een array
   // De vergelijking begint vandaag, we kijken als als deze datum in de lijst zit. Zo ja teller +1 en gaan we 1 dag terug. totdat we geen match hebben, dat is de streak
@@ -92,13 +105,11 @@ export class Dashboard  implements OnInit {
 
   // https://apexcharts.com/angular-chart-demos/radar-charts/basic-radar/
   buildRadarChart() {
-
     const knownTopicsPerCategory = new Map();
 
     this.categories.map(c => {
       this.topicsInSKill = 0;
       let knownTopics = 0;
-      knownTopics = 0;
       c.skills.forEach(s => {
         this.topicsInSKill += s.topics.length;
         s.topics.forEach(t => {
@@ -106,13 +117,13 @@ export class Dashboard  implements OnInit {
           else return;
         })
       })
-      knownTopicsPerCategory.set(c.name, (knownTopics/this.topicsInSKill *100))
+      knownTopicsPerCategory.set(c.name, (Math.round(knownTopics/this.topicsInSKill *100)))
     })
 
 
     this.chartOptions = {
     series: [{
-      name: 'Series 1',
+      name: 'Percentage done',
       data: [...knownTopicsPerCategory.values()]
     }],
     chart: {
@@ -123,10 +134,20 @@ export class Dashboard  implements OnInit {
       text: 'Learning radar chart' 
     },
     yaxis: {
-      stepSize: 10
+      min: 0,
+      max: 100,
+      tickAmount: 4,
     },
     xaxis: {
       categories: [...knownTopicsPerCategory.keys()],
+    },
+    // https://apexcharts.com/docs/options/tooltip/
+    tooltip: {
+      y: {
+        formatter: function(val) {
+          return val + "%";
+        }
+      }
     }
   };
 

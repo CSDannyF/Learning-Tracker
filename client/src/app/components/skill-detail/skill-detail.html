@@ -1,3 +1,6 @@
+@if (skill()!) {
+
+
 <div class="container">
   <div>
     <h1>{{ skill()!.name }} Detail Pagina</h1>
@@ -81,7 +84,7 @@
   @if (!isTopicDone(topic)) {
   <mat-form-field>
     <mat-label>{{ topic.status | status}}</mat-label>
-    <mat-select [(ngModel)]="topic.status" [disabled]="workedOnTopicToday().has(topic.id)">
+    <mat-select [(ngModel)]="topic.status">
       <mat-option [value]="TopicStatus.InProgress">{{ TopicStatus.InProgress | status}}</mat-option>
       <mat-option [value]="TopicStatus.Paused">{{ TopicStatus.Paused | status}}</mat-option>
       <mat-option [value]="TopicStatus.Done">{{ TopicStatus.Done | status }}</mat-option>
@@ -173,3 +176,4 @@
 
 
 </div>
+}

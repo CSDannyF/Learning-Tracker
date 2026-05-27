@@ -65,8 +65,9 @@
   "id": 7,
   "skillId": 3,
   "name": "Dom-tree",
-  "status": "in-progress",
-  "notes": []
+  "status": "done",
+  "notes": [],
+  "endDate": "2026-05-27T18:46:42.720Z"
 }, {
   "id": 8,
   "skillId": 3,
@@ -129,4 +130,55 @@
   "status": "not-started",
   "skillId": 4,
   "notes": []
+}, {
+  "id": 17,
+  "skillId": 9,
+  "name": "Hibernate",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 18,
+  "skillId": 9,
+  "name": "Mongoose",
+  "status": "not-started",
+  "notes": []
+}, {
+  "id": 19,
+  "skillId": 8,
+  "name": "SELECT",
+  "status": "done",
+  "notes": [],
+  "startDate": "2026-01-12T17:57:16.672Z",
+  "endDate": "2026-05-27T18:01:25.907Z"
+}, {
+  "id": 20,
+  "skillId": 8,
+  "name": "JOIN",
+  "status": "done",
+  "notes": [],
+  "startDate": "2026-02-14T17:57:20.110Z",
+  "endDate": "2026-05-27T18:01:13.559Z"
+}, {
+  "id": 21,
+  "skillId": 8,
+  "name": "GROUP BY",
+  "status": "done",
+  "notes": [],
+  "startDate": "2026-02-27T17:57:21.401Z",
+  "endDate": "2026-05-27T18:01:18.481Z"
+}, {
+  "id": 22,
+  "skillId": 8,
+  "name": "Subqueries",
+  "status": "paused",
+  "notes": [],
+  "startDate": "2026-03-01T17:57:23.910Z"
+}, {
+  "id": 23,
+  "skillId": 8,
+  "name": "WHERE",
+  "status": "done",
+  "notes": [],
+  "startDate": "2026-03-01T18:49:10.628Z",
+  "endDate": "2026-05-27T18:49:34.555Z"
 }]

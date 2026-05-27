@@ -1,4 +1,5 @@
 .kpi-cards {
   display: flex;
   gap: 16px;
+  justify-content: space-between;
 }
