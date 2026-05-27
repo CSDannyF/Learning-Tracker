@@ -22,6 +22,7 @@ export type ChartOptions = {
   yaxis?: ApexYAxis | ApexYAxis[];
   title?: ApexTitleSubtitle;
   tooltip?: ApexTooltip;
+  colors?: string[]
 }
 
 @Component({
@@ -45,6 +46,7 @@ export class Dashboard  implements OnInit {
   learningStreak: number = 0;
 
   chartOptions: Partial<ChartOptions> = {};
+  lineChartOptions: Partial<ChartOptions> = {};
 
   async ngOnInit(): Promise<void> {
     this.categories = await this.categoryService.getCategories();
@@ -54,6 +56,7 @@ export class Dashboard  implements OnInit {
     this.calculateLearningStreak();
     this.calculateTotalKnownTopics();
     this.buildRadarChart();
+    this.buildLineChart();
     this.cdr.detectChanges();
   }
 
@@ -127,7 +130,7 @@ export class Dashboard  implements OnInit {
       data: [...knownTopicsPerCategory.values()]
     }],
     chart: {
-      height: 500,
+      height: 600,
       type: 'radar'
     },
     title: {
@@ -150,7 +153,74 @@ export class Dashboard  implements OnInit {
       }
     }
   };
+  }
 
+  buildLineChart() {
+    const startedTopicsPerMonth = new Map();
+    const finishedTopicsPerMonth = new Map();
+    const today = new Date();
+    console.log(today.getFullYear())
+
+    for (let i = 0; i < 12; i++) {
+      startedTopicsPerMonth.set(i, 0);
+      finishedTopicsPerMonth.set(i, 0);
+    }
+
+    this.categories.forEach(c => {
+      c.skills.forEach(s => {
+        s.topics.forEach(t => {
+          if (t.status != TopicStatus.NotStarted && t.startDate) {
+            let date = new Date(t.startDate);
+            startedTopicsPerMonth.set(date.getMonth(), startedTopicsPerMonth.get(date.getMonth() ?? 0) + 1);
+          }      
+
+          if (t.status === TopicStatus.Done && t.endDate) {
+            let date = new Date(t.endDate);
+            finishedTopicsPerMonth.set(date.getMonth(),
+            finishedTopicsPerMonth.get(date.getMonth() ?? 0) +1);
+          }
+        })
+      })
+    })
+
+
+    this.lineChartOptions = {
+      series: [
+        {
+          name: 'Started Topics',
+          data: [...startedTopicsPerMonth.values()],
+        },
+        {
+          name: 'Finished Topics',
+          data: [...finishedTopicsPerMonth.values()],
+        }
+      ],
+          title: {
+      text: 'Monthly Topic Progression' 
+    },
+      chart: {
+        height: 350,
+        type: 'line',
+        zoom: {
+          enabled: false
+        },
+        toolbar: {
+          show: false,
+        }
+      },
+      colors: ['#b045ee', '#549bd4'],
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        title: {
+          text: 'Month',
+        },
+      },
+      yaxis: {
+        title: {
+          text: 'Topic'
+        }
+      },
+    }
   }
 
 }

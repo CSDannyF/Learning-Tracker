@@ -3,12 +3,12 @@
   "skillId": 1,
   "name": "Elements",
   "status": "done",
-  "startDate": "2026-05-06",
+  "startDate": "2026-01-06",
   "notes": [{
     "id": 1,
     "content": "An HTML element is defined by a start tag, some content, and an end tag",
     "url": "https://www.w3schools.com/html/html_elements.asp",
-    "date": "2026-05-06"
+    "date": "2026-03-06"
   }],
   "endDate": "2026-05-27T07:30:33.846Z"
 }, {
@@ -16,8 +16,8 @@
   "skillId": 1,
   "name": "Tags",
   "status": "done",
-  "startDate": "2026-05-07",
-  "endDate": "2026-05-17T21:16:04.003Z",
+  "startDate": "2026-01-07",
+  "endDate": "2026-02-17T21:16:04.003Z",
   "notes": []
 }, {
   "id": 4,
@@ -53,8 +53,8 @@
   "skillId": 3,
   "name": "Data-typess",
   "status": "done",
-  "startDate": "2026-05-07",
-  "endDate": "2026-05-17T21:17:50.479Z",
+  "startDate": "2026-02-07",
+  "endDate": "2026-04-17T21:17:50.479Z",
   "notes": [{
     "id": 1,
     "content": "nieuwe",
@@ -67,7 +67,8 @@
   "name": "Dom-tree",
   "status": "done",
   "notes": [],
-  "endDate": "2026-05-27T18:46:42.720Z"
+  "startDate": "2026-04-27T18:46:42.720Z",
+  "endDate": "2026-06-03T18:46:42.720Z"
 }, {
   "id": 8,
   "skillId": 3,
@@ -104,14 +105,14 @@
   "name": ".NET",
   "status": "in-progress",
   "notes": [],
-  "startDate": "2026-05-20T20:08:39.067Z"
+  "startDate": "2026-04-20T20:08:39.067Z"
 }, {
   "id": 14,
   "skillId": 4,
   "name": "JPA",
   "status": "done",
-  "startDate": "2026-05-05T09:54:06.728Z",
-  "endDate": "2026-05-21T09:54:06.728Z",
+  "startDate": "2026-02-05T09:54:06.728Z",
+  "endDate": "2026-06-15T09:54:06.728Z",
   "notes": [{
     "id": 1,
     "content": "JPA site",
@@ -149,23 +150,23 @@
   "status": "done",
   "notes": [],
   "startDate": "2026-01-12T17:57:16.672Z",
-  "endDate": "2026-05-27T18:01:25.907Z"
+  "endDate": "2026-03-27T18:01:25.907Z"
 }, {
   "id": 20,
   "skillId": 8,
   "name": "JOIN",
   "status": "done",
   "notes": [],
-  "startDate": "2026-02-14T17:57:20.110Z",
-  "endDate": "2026-05-27T18:01:13.559Z"
+  "startDate": "2026-01-14T17:57:20.110Z",
+  "endDate": "2026-03-27T18:01:13.559Z"
 }, {
   "id": 21,
   "skillId": 8,
   "name": "GROUP BY",
   "status": "done",
   "notes": [],
-  "startDate": "2026-02-27T17:57:21.401Z",
-  "endDate": "2026-05-27T18:01:18.481Z"
+  "startDate": "2026-01-27T17:57:21.401Z",
+  "endDate": "2026-04-27T18:01:18.481Z"
 }, {
   "id": 22,
   "skillId": 8,
