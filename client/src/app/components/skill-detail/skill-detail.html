@@ -1,4 +1,3 @@
-@if (skill()) {
 <mat-card>
   <h1>Skill Detail Pagina</h1>
   <mat-card-header class="skill-card">
@@ -7,6 +6,37 @@
 
   </mat-card-header>
   <mat-card-content>
+    <button matIconButton (click)="createSkillNote(skill()!)"
+      [disabled]="isAddingNoteToSkill.size > 0 || isAddingNoteToTopic.size > 0">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <!-- Form voor het toevoegen van een Note aan een Skill -->
+    @if (isAddingNoteToSkill.get(skill()!.id)) {
+    <div class="add-note">
+      <mat-form-field>
+        <mat-label for="content">Note content</mat-label>
+        <input matInput type="text" id="content" name="content" [(ngModel)]="newNote.content">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="url">Note URL</mat-label>
+        <input matInput type="text" id="url" name="url" [(ngModel)]="newNote.url">
+      </mat-form-field>
+      <button matButton (click)="saveSkillNote(skill()!)">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button matButton (click)="cancelSkillNote(skill()!)">
+        <mat-icon>clear</mat-icon>
+      </button>
+
+      <!-- Error boodschap wanneer Note content leeg is -->
+      @if (!isInputValid) {
+      <p class="error-message">{{ errorMessage }}</p>
+      }
+    </div>
+    }
+
+    <!-- Accordeon met alle notes in een Skill -->
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -24,17 +54,23 @@
     </mat-accordion>
   </mat-card-content>
 
+  <!-- Alle Topics van een Skill in een Card -->
   <h1>Topics</h1>
   <p>Progress: {{ skill()!.topics | progress }}%</p>
   <mat-progress-bar mode="determinate" [value]="skill()!.topics | progress"></mat-progress-bar>
+
+  <!-- Topics tonen via een for loop -->
   @for (topic of skill()!.topics; track topic.id) {
+
+  <!-- Blok om de Topic inline te wijzigen -->
   @if (isEditing.get(topic.id)) {
   <mat-form-field>
     <mat-label for="name">Topic name</mat-label>
     <input matInput type="text" id="name" name="name" [(ngModel)]="topic.name">
   </mat-form-field>
 
-  @if (isTopicDone(topic)) {
+  <!-- Select om de Status van een Topic te wijzigen -->
+  @if (!isTopicDone(topic)) {
   <mat-form-field>
     <mat-label>{{ topic.status | status}}</mat-label>
     <mat-select [(ngModel)]="topic.status" [disabled]="workedOnTopicToday().has(topic.id)">
@@ -45,12 +81,15 @@
   </mat-form-field>
   }
 
+  <!-- Opslaan en annuleer knop van de te wijzigen Topic -->
   <button matButton (click)="saveEdit(topic)">
     <mat-icon>save</mat-icon>
   </button>
   <button matButton (click)="cancelEdit(topic)">
     <mat-icon>clear</mat-icon>
   </button>
+
+  <!-- Indien geen wijziging bezig is, de Topic normaal tonen -->
   } @else {
   <mat-card appearance="raised">
     <mat-card-header>
@@ -73,31 +112,38 @@
       <p>Status: {{ topic.status | status }}</p>
 
 
+      <!-- Note toevoegen aan een Topic -->
+      <button matIconButton (click)="createTopicNote(topic)"
+        [disabled]="!isAddingNoteToTopic.has(topic.id) !!&& isAddingNoteToTopic.size != 0 || isAddingNoteToSkill.size > 0">
+        <mat-icon>add</mat-icon>
+      </button>
+      @if (isAddingNoteToTopic.get(topic.id)) {
+      <div class="add-note">
+        <mat-form-field>
+          <mat-label for="content">Note content</mat-label>
+          <input matInput type="text" id="content" name="content" [(ngModel)]="newNote.content">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label for="url">Note URL</mat-label>
+          <input matInput type="text" id="url" name="url" [(ngModel)]="newNote.url">
+        </mat-form-field>
+        <button matButton (click)="saveTopicNote(topic)">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button matButton (click)="cancelTopicNote(topic)">
+          <mat-icon>clear</mat-icon>
+        </button>
+        @if (!isInputValid) {
+        <p class="error-message">{{ errorMessage }}</p>
+        }
+      </div>
+
+      }
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>Notities</mat-panel-title>
-            <button matIconButton (click)="createNote(topic); $event.stopPropagation()">
-              <mat-icon>add</mat-icon>
-            </button>
-            @if (isAddingNote.get(topic.id)) {
-            <mat-form-field>
-              <mat-label for="content">Note content</mat-label>
-              <input matInput type="text" id="content" name="content" [(ngModel)]="newNote.content"
-                (keydown.space)="$event.stopPropagation()">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label for="url">Note URL</mat-label>
-              <input matInput type="text" id="url" name="url" [(ngModel)]="newNote.url"
-                (keydown.space)="$event.stopPropagation()">
-            </mat-form-field>
-            <button matButton (click)="saveNote(topic)">
-              <mat-icon>save</mat-icon>
-            </button>
-            <button matButton (click)="cancelNote(topic)">
-              <mat-icon>clear</mat-icon>
-            </button>
-            }
+
           </mat-expansion-panel-header>
           @for (note of topic!.notes; track note.id) {
           <p>{{ note.date | date:'dd/MM/yyyy'}}</p>
@@ -115,4 +161,3 @@
 
 
 </mat-card>
-}

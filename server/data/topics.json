@@ -10,7 +10,7 @@
     "url": "https://www.w3schools.com/html/html_elements.asp",
     "date": "2026-05-06"
   }],
-  "endDate": "2026-05-26T15:31:46.314Z"
+  "endDate": "2026-05-27T07:30:33.846Z"
 }, {
   "id": 2,
   "skillId": 1,
@@ -94,7 +94,7 @@
 }, {
   "id": 12,
   "skillId": 2,
-  "name": "Typografie",
+  "name": "Fonts",
   "status": "not-started",
   "notes": []
 }, {
@@ -111,7 +111,12 @@
   "status": "done",
   "startDate": "2026-05-05T09:54:06.728Z",
   "endDate": "2026-05-21T09:54:06.728Z",
-  "notes": []
+  "notes": [{
+    "id": 1,
+    "content": "JPA site",
+    "url": "https://spring.io/projects/spring-data-jpa",
+    "date": "2026-05-26T17:35:48.083Z"
+  }]
 }, {
   "id": 15,
   "skillId": 4,

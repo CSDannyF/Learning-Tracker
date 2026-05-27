@@ -36,9 +36,10 @@ export class SkillDetail implements OnInit {
   skill = signal<Skill | null>(null);
   TopicStatus = TopicStatus;
 
-  // De maps dienen om in de lijst van topics de juiste topic via topic.id inline te editten of toevoegen van een Note. De bijhorende boolean gaat in de template ervoor zorgen dat de tekstvelden veranderd worden naar input velden.
+  // De maps dienen om in de lijst van topics de juiste topic via topic.id inline te editten of toevoegen van een Note. De bijhorende boolean gaat in de template ervoor zorgen dat de tekstvelden veranderd worden naar input velden. of skill en skill.id
   isEditing: Map<number, boolean> = new Map();
-  isAddingNote: Map<number, boolean> = new Map();
+  isAddingNoteToTopic: Map<number, boolean> = new Map();
+  isAddingNoteToSkill: Map<number, boolean> = new Map();
 
   // OriginalStatus houdt bij als tijdens de edit van de topic de status veranderd word. Indien deze veranderd word, word er een activiteit aangemaakt
   originalStatus: Map<number, TopicStatus> = new Map();
@@ -63,7 +64,7 @@ export class SkillDetail implements OnInit {
     this.isEditing.set(topic.id, true);
   }
 
-  // Aangepaste edit opslaan
+  // Aangepaste edit van Skill opslaan
   async saveEdit(topic: Topic) {
     if (topic.status != this.originalStatus.get(topic.id)) {
       const activity = new Activity(
@@ -78,20 +79,24 @@ export class SkillDetail implements OnInit {
     }
     await this.topicService.updateTopic(topic.id ,topic);
     this.isEditing.set(topic.id, false);
+    //this.isAddingNote.delete(topic.id);
     this.cdr.detectChanges();
   }
 
   // stoppen Edit Topic
   cancelEdit(topic: Topic) {
     this.isEditing.set(topic.id, false);
+    //this.isAddingNote.delete(topic.id);
+    this.isInputValid = true;
+    this.errorMessage = ``;
   }
 
   // Note opslaan bij topic
-  saveNote(topic: Topic) {
+  saveTopicNote(topic: Topic) {
     this.isInputValid = true;
     this.errorMessage = ``;
 
-    if (!this.newNote.content || this.newNote.content?.trim() == ""){
+    if (!this.newNote.content || this.newNote.content?.trim() == "") {
       this.errorMessage = "Content mag niet leeg zijn.";
       this.isInputValid = false;
     } else {
@@ -101,18 +106,46 @@ export class SkillDetail implements OnInit {
         this.newNote.url ?? ""
       )
       this.topicService.addNoteToTopic(topic.id, note);
-      this.isAddingNote.set(topic.id, false);
+      this.isAddingNoteToTopic.delete(topic.id);
+      this.cdr.detectChanges();
     }
   }
 
   // Stoppen met toevoegen Note
-  cancelNote(topic: Topic) {
-    this.isAddingNote.set(topic.id, false);
+  cancelTopicNote(topic: Topic) {
+    this.isAddingNoteToTopic.delete(topic.id);
   }
 
   // Start toevoegen Note
-  createNote(topic: Topic) {
-    this.isAddingNote.set(topic.id, true);
+  createTopicNote(topic: Topic) {
+    this.isAddingNoteToTopic.set(topic.id, true);
+  }
+
+  saveSkillNote(skill: Skill) {
+    this.isInputValid = true;
+    this.errorMessage = ``;
+
+    if (!this.newNote.content || this.newNote.content?.trim() == "") {
+      this.errorMessage = "Content mag niet leeg zijn.";
+      this.isInputValid = false;
+    } else {
+      let note = new Note(
+        0,
+        this.newNote.content ?? "",
+        this.newNote.url ?? ""
+      )
+      this.skillService.addNoteToSkill(skill.id, note);
+      this.isAddingNoteToSkill.delete(skill.id);
+      this.cdr.detectChanges();
+    }
+  }
+
+  cancelSkillNote(skill: Skill) {
+    this.isAddingNoteToSkill.delete(skill.id);
+  }
+
+  createSkillNote(skill: Skill) {
+    this.isAddingNoteToSkill.set(skill.id, true);
   }
 
   // Activiteit toevoegen WorkedOn
