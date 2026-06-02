@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconButton } from '@angular/material/button';
@@ -13,6 +13,7 @@ import { SkillService } from '../../services/skill-service';
 import { AddTopicDialog } from "../dialogs/add-topic-dialog/add-topic-dialog";
 import { TopicService } from '../../services/topic-service';
 import { RouterLink } from "@angular/router";
+import { CategoryService } from '../../services/category-service';
 
 @Component({
   selector: 'app-category-component',
@@ -22,13 +23,16 @@ import { RouterLink } from "@angular/router";
 })
 export class CategoryComponent implements OnInit {
 
-  constructor(private skillService: SkillService,private topicservice: TopicService , private cdr: ChangeDetectorRef) {}
+  constructor(private categoryService: CategoryService ,private skillService: SkillService,private topicservice: TopicService , private cdr: ChangeDetectorRef) {}
 
   @Input()
   category!: Category;
 
   @Input()
   selectedSkillId: number = 0;
+
+  @Output()
+  deleteCategory: EventEmitter<number> = new EventEmitter<number>();
 
   @ViewChild("newSkillDialog")
   newSkillDialog: ElementRef<HTMLDialogElement> | undefined;
@@ -79,6 +83,18 @@ export class CategoryComponent implements OnInit {
     this.dataSource = this.category.skills.map(skill => this.mapSkillToTreeNdode(skill));
     this.newSkillDialog?.nativeElement.close();
     this.cdr.detectChanges();
+  }
+
+  async deleteSkill(skillId: number) {
+      const skill = this.category.skills.find(s => s.id === skillId);
+    if (confirm(`Ben je zeker dat je "${skill?.name}" wil verwijderen?`)) {
+      await this.skillService.deleteSkill(skillId);
+      const index = this.category.skills.findIndex(s => s.id === skillId);
+      this.category.skills.splice(index, 1);
+      this.category.skills = this.category.skills.filter(s => s.id !== skillId);
+      this.dataSource = this.category.skills.map(skill => this.mapSkillToTreeNdode(skill));
+      this.cdr.detectChanges();
+    }
   }
 
   async addNewTopic(newTopic: Topic) {

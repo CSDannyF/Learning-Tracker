@@ -3,6 +3,9 @@
   <button matIconButton (click)="openNewSkillDialog()" aria-label="Add skill">
     <mat-icon class="add-skill-icon">add</mat-icon>
   </button>
+  <button matIconButton (click)="deleteCategory.emit(category.id); $event.stopPropagation()">
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>
 
 <mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor" class="tree">
@@ -12,6 +15,9 @@
     @if (node.isSkill) {
     <button matIconButton (click)="openNewTopicDialog(node.id); $event.stopPropagation()">
       <mat-icon class="add-topic-icon">add</mat-icon>
+    </button>
+    <button matIconButton (click)="deleteSkill(node.id); $event.stopPropagation()">
+      <mat-icon>delete</mat-icon>
     </button>
     }
   </mat-nested-tree-node>
@@ -27,6 +33,9 @@
       <a [routerLink]="node.link">{{ node.name }}</a>
       <button matIconButton (click)="openNewTopicDialog(node.id); $event.stopPropagation()">
         <mat-icon class="add-topic-icon">add</mat-icon>
+      </button>
+      <button matIconButton (click)="deleteSkill(node.id); $event.stopPropagation()">
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
     <div [class.tree-invisible]="!tree.isExpanded(node)" role="group">

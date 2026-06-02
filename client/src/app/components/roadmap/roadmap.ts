@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category-service';
@@ -34,10 +34,17 @@ export class Roadmap implements OnInit {
   }
 
   async addNewCategory(newCategory: Category) {
-  
     const savedCategory = await this.categoryService.addCategory(newCategory)
     this.categories.push(savedCategory);
     this.newCategoryDialog?.nativeElement.close();
     this.cdr.detectChanges();
+  }
+
+  async onDeleteCategory(categoryId: number) {
+    if (confirm('Ben je zeker dat je deze category wil verwijderen?')) {
+      await this.categoryService.deleteCategory(categoryId);
+      this.categories = this.categories.filter(c => c.id !== categoryId);
+      this.cdr.detectChanges();
+    }
   }
 }
