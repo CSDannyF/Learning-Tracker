@@ -172,6 +172,16 @@ export class SkillDetail implements OnInit {
     this.cdr.detectChanges();
   }
 
+  async deleteTopic(topic: Topic) {
+    if (confirm(`Ben je zeker dat je "${topic.name}" wil verwijderen?`)) {
+      await this.topicService.deleteTopic(topic.id);
+      const index = this.skill()!.topics.findIndex(t => t.id === topic.id);
+      this.skill()!.topics.splice(index, 1);
+      // skill opnieuw setten, anders geen refresh op de UI
+      this.skill.set(await this.skillService.getSkillBySkillId(topic.skillId));
+    }
+  }
+
   async ngOnInit(): Promise<void> {
     const skillId = Number(this.route.snapshot.paramMap.get('skillId'));
     this.skill.set(await this.skillService.getSkillBySkillId(skillId));
@@ -191,3 +201,6 @@ export class SkillDetail implements OnInit {
       this.workedOnTopicToday.set(newSet);
   }
 }
+
+// signals automatische update,
+//https://dev.to/codewithrajat/angular-signals-not-updating-heres-why-and-how-to-fix-it-with-real-solutions-4po1
