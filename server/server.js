@@ -251,9 +251,6 @@ app.delete('/api/skills/:id/notes/:noteId', async (req, res) => {
   const noteId = parseInt(req.params.noteId);
   const skillIndex = skills.findIndex(skill => skill.id == skillId);
 
-  console.log(skillId)
-  console.log(skillIndex)
-
   if (skillIndex == -1) {
     res.status(404).send("Skill id not found");
   } else {
