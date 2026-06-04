@@ -87,7 +87,7 @@ export class CategoryComponent implements OnInit {
 
   async deleteSkill(skillId: number) {
       const skill = this.category.skills.find(s => s.id === skillId);
-    if (confirm(`Ben je zeker dat je "${skill?.name}" wil verwijderen?`)) {
+    if (confirm(`Are you sure you want to delete "${skill?.name}"?`)) {
       await this.skillService.deleteSkill(skillId);
       const index = this.category.skills.findIndex(s => s.id === skillId);
       this.category.skills.splice(index, 1);

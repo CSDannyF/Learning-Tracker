@@ -39,13 +39,13 @@ export class AddCategoryDialog {
 
     // Check als name null of leeg is " "
     if (!this.category.name || this.category.name.trim() == "") {
-      this.errorMessage = `Categorie naam mag niet leeg zijn.`;
+      this.errorMessage = `Categorie can not be empty.`;
       this.isInputValid = false;
     }
 
     this.existingCategories.forEach(cat => {
         if(cat.name == this.category.name) {
-        this.errorMessage = `De categorie: ${this.category.name} bestaat al.`
+        this.errorMessage = `Categorie: "${this.category.name} already exists.".`
         this.isInputValid = false;
       }
     })

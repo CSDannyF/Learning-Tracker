@@ -95,7 +95,8 @@ export class Dashboard  implements OnInit {
 
   // Alle activiteiten mappen als string
   // Set verwijderd duplicaten, de spread [...] zet de set om naar een array
-  // De vergelijking begint vandaag, we kijken als als deze datum in de lijst zit. Zo ja teller +1 en gaan we 1 dag terug. totdat we geen match hebben, dat is de streak
+  // https://www.w3schools.com/jsref/jsref_oper_spread.asp
+  // De vergelijking begint vandaag, we kijken als deze datum in de lijst zit. Zo ja teller +1 en gaan we 1 dag terug. totdat we geen match hebben, dat is de streak gedaan
   calculateLearningStreak() {
     const dateStrings = [...new Set(
       this.activities.map(a => new Date(a.date).toDateString())

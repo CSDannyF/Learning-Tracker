@@ -32,7 +32,7 @@ export class AddTopicDialog {
     this.errorMessage = ``;
 
     if (!this.topic.name || this.topic.name?.trim() == "") {
-      this.errorMessage = `Topic naam mag niet leeg zijn.`;
+      this.errorMessage = `Topic can not be empty.`;
       this.isInputValid = false;
     } else {
       let topic = new Topic(

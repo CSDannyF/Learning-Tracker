@@ -45,7 +45,7 @@
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title>Notities</mat-panel-title>
+          <mat-panel-title>Notes</mat-panel-title>
         </mat-expansion-panel-header>
         @for (note of skill()!.notes; track note.id) {
         <p>{{ note.date | date:'dd/MM/yyyy'}}</p>
@@ -158,7 +158,7 @@
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>Notities</mat-panel-title>
+            <mat-panel-title>Notes</mat-panel-title>
 
           </mat-expansion-panel-header>
           @for (note of topic!.notes; track note.id) {

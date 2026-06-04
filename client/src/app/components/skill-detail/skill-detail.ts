@@ -79,14 +79,12 @@ export class SkillDetail implements OnInit {
     }
     await this.topicService.updateTopic(topic.id ,topic);
     this.isEditing.set(topic.id, false);
-    //this.isAddingNote.delete(topic.id);
     this.cdr.detectChanges();
   }
 
   // stoppen Edit Topic
   cancelEdit(topic: Topic) {
     this.isEditing.set(topic.id, false);
-    //this.isAddingNote.delete(topic.id);
     this.isInputValid = true;
     this.errorMessage = ``;
   }
@@ -97,7 +95,7 @@ export class SkillDetail implements OnInit {
     this.errorMessage = ``;
 
     if (!this.newNote.content || this.newNote.content?.trim() == "") {
-      this.errorMessage = "Content mag niet leeg zijn.";
+      this.errorMessage = "Content can not be empty.";
       this.isInputValid = false;
     } else {
       let note = new Note(
@@ -126,7 +124,7 @@ export class SkillDetail implements OnInit {
     this.errorMessage = ``;
 
     if (!this.newNote.content || this.newNote.content?.trim() == "") {
-      this.errorMessage = "Content mag niet leeg zijn.";
+      this.errorMessage = "Content can not be empty.";
       this.isInputValid = false;
     } else {
       let note = new Note(
@@ -173,7 +171,7 @@ export class SkillDetail implements OnInit {
   }
 
   async deleteTopic(topic: Topic) {
-    if (confirm(`Ben je zeker dat je "${topic.name}" wil verwijderen?`)) {
+    if (confirm(`Are you sure you want to delete "${topic.name}"?`)) {
       await this.topicService.deleteTopic(topic.id);
       const index = this.skill()!.topics.findIndex(t => t.id === topic.id);
       this.skill()!.topics.splice(index, 1);

@@ -41,7 +41,7 @@ export class Roadmap implements OnInit {
   }
 
   async onDeleteCategory(categoryId: number) {
-    if (confirm('Ben je zeker dat je deze category wil verwijderen?')) {
+    if (confirm(`Are you sure you want to delete this category?`)) {
       await this.categoryService.deleteCategory(categoryId);
       this.categories = this.categories.filter(c => c.id !== categoryId);
       this.cdr.detectChanges();
